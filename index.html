@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МИРА ОФИГЕЛА</title>
+    <style>
+        body {
+            background: black;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        h1 {
+            color: white;
+            font-size: 80px;
+            font-family: Arial;
+            text-shadow: 
+                0 0 20px white, 
+                0 0 60px fuchsia, 
+                0 0 100px cyan;
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0% { 
+                text-shadow: 0 0 20px white, 0 0 60px fuchsia; 
+            }
+            50% { 
+                text-shadow: 0 0 40px white, 0 0 100px cyan, 0 0 150px fuchsia; 
+            }
+            100% { 
+                text-shadow: 0 0 20px white, 0 0 60px fuchsia; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>МИРА ОФИГЕЛА</h1>
+</body>
+</html>
