@@ -1,373 +1,284 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MainSurf — GitHub Style</title>
+<title>Мироша ✨</title>
 
 <style>
-:root{
-    --bg:#0d1117;
-    --card:#161b22;
-    --border:#30363d;
-    --text:#e6edf3;
-    --muted:#8b949e;
-    --green:#3fb950;
-    --pink:#ff79c6;
-    --purple:#a78bfa;
-    --blue:#58a6ff;
-}
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Inter,Segoe UI,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,system-ui,sans-serif;
 }
 
 body{
-    background:var(--bg);
-    color:var(--text);
+background:#0f0f14;
+color:white;
+overflow-x:hidden;
+}
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%,#ff6ec744 0%,transparent 40%),
+radial-gradient(circle at 80% 30%,#9d7bff44 0%,transparent 40%),
+radial-gradient(circle at 50% 80%,#ffb6d944 0%,transparent 40%);
+z-index:-1;
 }
 
 header{
-    background:#010409;
-    border-bottom:1px solid var(--border);
-    padding:16px 24px;
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.nav{
-    max-width:1200px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+padding:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:700;
-    background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+font-size:28px;
+font-weight:700;
 }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:30px 20px;
+nav{
+display:flex;
+gap:25px;
 }
 
-.repo-header{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:30px;
-    margin-bottom:24px;
-}
-
-.repo-name{
-    font-size:38px;
-    font-weight:800;
-    margin-bottom:10px;
-}
-
-.repo-desc{
-    color:var(--muted);
-    font-size:18px;
-}
-
-.badges{
-    display:flex;
-    gap:12px;
-    margin-top:18px;
-    flex-wrap:wrap;
-}
-
-.badge{
-    background:#21262d;
-    border:1px solid var(--border);
-    padding:8px 14px;
-    border-radius:999px;
-    color:var(--text);
+nav a{
+color:#ddd;
+text-decoration:none;
 }
 
 .hero{
-    margin-top:25px;
-    background:linear-gradient(
-    135deg,
-    rgba(255,121,198,.15),
-    rgba(88,166,255,.15),
-    rgba(167,139,250,.15));
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:40px;
-    text-align:center;
+max-width:1000px;
+margin:auto;
+padding:80px 20px;
+text-align:center;
 }
 
 .hero h1{
-    font-size:52px;
-    margin-bottom:12px;
+font-size:70px;
+margin-bottom:15px;
+background:linear-gradient(90deg,#ff7ecf,#b388ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .hero p{
-    color:var(--muted);
-    max-width:700px;
-    margin:auto;
+font-size:20px;
+color:#bdbdbd;
+max-width:650px;
+margin:auto;
 }
 
 .buttons{
-    margin-top:24px;
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
+margin-top:35px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
 }
 
 .btn{
-    text-decoration:none;
-    padding:12px 24px;
-    border-radius:12px;
-    font-weight:600;
-    transition:.2s;
+padding:14px 24px;
+border-radius:15px;
+text-decoration:none;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
-.btn-primary{
-    background:var(--green);
-    color:white;
+.btn-main{
+background:linear-gradient(90deg,#ff7ecf,#b388ff);
+color:white;
 }
 
-.btn-secondary{
-    border:1px solid var(--border);
-    color:white;
+.btn-dark{
+background:#1c1c25;
+color:white;
+border:1px solid #333;
 }
 
-.btn:hover{
-    transform:translateY(-2px);
+.icon{
+width:20px;
+height:20px;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-    margin-top:24px;
+.cards{
+max-width:1100px;
+margin:auto;
+padding:30px 20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
 }
 
 .card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:24px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.08);
+padding:25px;
+border-radius:24px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
 }
 
 .card h3{
-    margin-bottom:12px;
+margin-bottom:10px;
 }
 
 .card p{
-    color:var(--muted);
+color:#bdbdbd;
 }
 
-.readme{
-    margin-top:24px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    overflow:hidden;
+.gallery{
+max-width:1100px;
+margin:auto;
+padding:30px 20px;
 }
 
-.readme-header{
-    padding:14px 20px;
-    border-bottom:1px solid var(--border);
-    font-weight:700;
+.gallery h2{
+margin-bottom:20px;
 }
 
-.readme-content{
-    padding:30px;
-    line-height:1.8;
+.photos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
 
-.readme-content h2{
-    margin-bottom:12px;
-}
-
-.readme-content ul{
-    margin-left:20px;
-}
-
-.stats{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    margin-top:20px;
-}
-
-.stat{
-    flex:1;
-    min-width:140px;
-    background:#21262d;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
-}
-
-.stat-number{
-    font-size:28px;
-    font-weight:700;
-}
-
-.stat-label{
-    color:var(--muted);
+.photo{
+height:220px;
+border-radius:24px;
+background:linear-gradient(135deg,#ff7ecf,#b388ff);
+opacity:.85;
 }
 
 footer{
-    margin-top:50px;
-    border-top:1px solid var(--border);
-    text-align:center;
-    padding:30px;
-    color:var(--muted);
+padding:50px 20px;
+text-align:center;
+color:#888;
 }
 
-.glow{
-    position:fixed;
-    width:400px;
-    height:400px;
-    background:radial-gradient(circle,var(--purple),transparent 70%);
-    opacity:.08;
-    top:-100px;
-    right:-100px;
-    pointer-events:none;
+.socials{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
 }
 
-.glow2{
-    position:fixed;
-    width:400px;
-    height:400px;
-    background:radial-gradient(circle,var(--pink),transparent 70%);
-    opacity:.08;
-    bottom:-100px;
-    left:-100px;
-    pointer-events:none;
+.socials a{
+width:50px;
+height:50px;
+border-radius:15px;
+background:#1c1c25;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 </style>
+
 </head>
+
 <body>
 
-<div class="glow"></div>
-<div class="glow2"></div>
+<div class="bg"></div>
 
 <header>
-    <div class="nav">
-        <div class="logo">MainSurf</div>
-        <div>⭐ GitHub Inspired Design</div>
-    </div>
+<div class="logo">✨ Мироша</div>
+
+<nav>
+<a href="#">Главная</a>
+<a href="#">Обо мне</a>
+<a href="#">Фото</a>
+<a href="#">Контакты</a>
+</nav>
 </header>
 
-<div class="container">
+<section class="hero">
 
-    <section class="repo-header">
-        <div class="repo-name">mainsurf / mainsurf.github.io</div>
-        <div class="repo-desc">
-            Красивый персональный сайт с современным интерфейсом и оформлением в стиле GitHub.
-        </div>
+<h1>Мироша 💖</h1>
 
-        <div class="badges">
-            <div class="badge">🌊 MainSurf</div>
-            <div class="badge">💖 Cute UI</div>
-            <div class="badge">⚡ Fast</div>
-            <div class="badge">📦 Open Source</div>
-        </div>
+<p>
+Самая милая девушка во вселенной.
+Мечты, музыка, уютные вечера, красивые фотографии
+и немного магии каждый день ✨
+</p>
 
-        <div class="hero">
-            <h1>🌸 MainSurf</h1>
-            <p>
-                Милый современный сайт с атмосферой GitHub.
-                Минимализм, красивые карточки, плавные градиенты и удобная структура.
-            </p>
+<div class="buttons">
 
-            <div class="buttons">
-                <a href="#" class="btn btn-primary">🚀 Открыть проект</a>
-                <a href="#" class="btn btn-secondary">⭐ Поставить звезду</a>
-            </div>
-        </div>
-    </section>
+<a href="#" class="btn btn-main">
+<img src="images/heart.svg" class="icon">
+Любимое
+</a>
 
-    <div class="grid">
-        <div class="card">
-            <h3>🎨 Дизайн</h3>
-            <p>
-                Вдохновлён GitHub с добавлением мягких цветов и плавных эффектов.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>⚡ Скорость</h3>
-            <p>
-                Один HTML-файл без зависимостей и сторонних библиотек.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>📱 Адаптивность</h3>
-            <p>
-                Отлично выглядит на компьютерах, планшетах и телефонах.
-            </p>
-        </div>
-    </div>
-
-    <section class="readme">
-        <div class="readme-header">
-            README.md
-        </div>
-
-        <div class="readme-content">
-
-            <h2>🌊 Добро пожаловать в MainSurf</h2>
-
-            <p>
-                MainSurf — это современный веб-проект с чистым дизайном,
-                вдохновлённым интерфейсом GitHub и дополненным милыми элементами.
-            </p>
-
-            <br>
-
-            <h2>✨ Возможности</h2>
-
-            <ul>
-                <li>Красивый GitHub-style интерфейс</li>
-                <li>Тёмная тема</li>
-                <li>Плавные анимации</li>
-                <li>Адаптивный дизайн</li>
-                <li>Один HTML-файл</li>
-            </ul>
-
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">HTML</div>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Идей</div>
-                </div>
-
-                <div class="stat">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Online</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
+<a href="#" class="btn btn-dark">
+<img src="images/play.svg" class="icon">
+Плейлист
+</a>
 
 </div>
 
+</section>
+
+<section class="cards">
+
+<div class="card">
+<h3>💗 Характер</h3>
+<p>Добрая, весёлая и невероятно очаровательная.</p>
+</div>
+
+<div class="card">
+<h3>⭐ Любимое</h3>
+<p>Музыка, красивые закаты, путешествия и уют.</p>
+</div>
+
+<div class="card">
+<h3>🌸 Атмосфера</h3>
+<p>Нежные цвета, эстетика Pinterest и вдохновение.</p>
+</div>
+
+</section>
+
+<section class="gallery">
+
+<h2>Галерея ✨</h2>
+
+<div class="photos">
+<div class="photo"></div>
+<div class="photo"></div>
+<div class="photo"></div>
+</div>
+
+</section>
+
 <footer>
-    Made with 💖 by MainSurf
+
+<div>Made with love for Мироша 💖</div>
+
+<div class="socials">
+
+<a href="#">
+<img src="images/star.svg" class="icon">
+</a>
+
+<a href="#">
+<img src="images/telegram.svg" class="icon">
+</a>
+
+<a href="#">
+<img src="images/heart.svg" class="icon">
+</a>
+
+</div>
+
 </footer>
 
 </body>
