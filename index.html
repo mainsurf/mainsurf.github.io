@@ -75,8 +75,8 @@ function answer(type){
   if(step === 1){
 
     if(type === "yes"){
-      q.innerText = "закрой сайт и отдохни";
-      msg.innerText = "💤";
+      q.innerText = "закрой пойди и отдохни :";
+      msg.innerText = "";
 
       btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
       locked = true;
@@ -105,7 +105,7 @@ function answer(type){
     }
 
     step++;
-    q.innerText = "пойдём в дсс?";
+    q.innerText = "пойдём в ds?";
 
     btn.innerHTML = `
       <button class="btn good" onclick="answer('yes')">да</button>
@@ -117,7 +117,7 @@ function answer(type){
   if(step === 3){
 
     if(type === "yes"){
-      window.open("https://t.me/ffweld?text=пойдем!", "_blank");
+      window.open("https://t.me/ffweld?text=пойдем", "_blank");
       return;
     }
 
