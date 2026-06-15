@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mainsurf invite</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,7 +14,7 @@
 
 <div class="card">
 
-  <div class="title">mainsurf • invite system</div>
+  <div class="title">mainsurf • invite</div>
 
   <div id="question" class="question">Ты устала?</div>
 
@@ -36,7 +37,19 @@ const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
 
-function block(){
+/* 🎲 рандом фон из images */
+const photos = [
+  "images/photo1.jpg",
+  "images/photo2.jpg",
+  "images/photo3.jpg",
+  "images/photo4.jpg",
+  "images/photo5.jpg"
+];
+
+document.querySelector(".bg").style.backgroundImage =
+  `url('${photos[Math.floor(Math.random() * photos.length)]}')`;
+
+function stop(){
   btn.innerHTML = "";
   locked = true;
 }
@@ -44,42 +57,52 @@ function block(){
 function answer(type){
   if(locked) return;
 
-  // 🔴 ВОПРОС 1
+  // 1 ВОПРОС
   if(step === 1){
 
     if(type === "yes"){
       q.innerText = "закрой сайт и отдохни.";
       msg.innerText = "💤";
-      block();
+      stop();
       return;
     }
 
     step++;
     q.innerText = "как настроение?";
+
+    btn.innerHTML = `
+      <button class="btn good" onclick="answer('good')">хорошо</button>
+      <button class="btn good" onclick="answer('ok')">нормально</button>
+      <button class="btn danger" onclick="answer('bad')">плохо</button>
+    `;
     return;
   }
 
-  // 🔵 ВОПРОС 2
+  // 2 ВОПРОС
   if(step === 2){
 
-    if(type === "no"){
-      q.innerText = "надеюсь оно станет лучше";
+    if(type === "bad"){
+      q.innerText = "надеюсь станет лучше.";
       msg.innerText = "💙";
-      block();
+      stop();
       return;
     }
 
     step++;
     q.innerText = "пойдём в Discord?";
-    msg.innerText = "";
+
+    btn.innerHTML = `
+      <button class="btn good" onclick="answer('yes')">да</button>
+      <button class="btn danger" onclick="answer('no')">нет</button>
+    `;
     return;
   }
 
-  // 🟢 ВОПРОС 3
+  // 3 ВОПРОС
   if(step === 3){
 
     if(type === "yes"){
-      window.open("https://discord.com/channels/@me", "_blank");
+      window.open("https://t.me/ffweld?text=пойдем!", "_blank");
       return;
     }
 
@@ -92,7 +115,7 @@ function answer(type){
       </button>
     `;
 
-    block();
+    stop();
     return;
   }
 }
