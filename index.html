@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>mainsurf invite</title>
-
+<title>invite</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,7 +13,7 @@
 
 <div class="card">
 
-  <div class="title">mainsurf • invite</div>
+  <div class="title">invite</div>
 
   <div id="question" class="question">Ты устала?</div>
 
@@ -37,7 +36,7 @@ const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
 
-/* 🎲 рандом фон из images */
+/* 📸 рандом фон */
 const photos = [
   "images/photo1.jpg",
   "images/photo2.jpg",
@@ -57,11 +56,11 @@ function stop(){
 function answer(type){
   if(locked) return;
 
-  // 1 ВОПРОС
+  // 1
   if(step === 1){
 
     if(type === "yes"){
-      q.innerText = "закрой сайт и отдохни.";
+      q.innerText = "закрой сайт и отдохни";
       msg.innerText = "💤";
       stop();
       return;
@@ -71,18 +70,17 @@ function answer(type){
     q.innerText = "как настроение?";
 
     btn.innerHTML = `
-      <button class="btn good" onclick="answer('good')">хорошо</button>
-      <button class="btn good" onclick="answer('ok')">нормально</button>
+      <button class="btn good" onclick="answer('good')">все хорошо</button>
       <button class="btn danger" onclick="answer('bad')">плохо</button>
     `;
     return;
   }
 
-  // 2 ВОПРОС
+  // 2
   if(step === 2){
 
     if(type === "bad"){
-      q.innerText = "надеюсь станет лучше.";
+      q.innerText = "надеюсь станет лучше";
       msg.innerText = "💙";
       stop();
       return;
@@ -98,7 +96,7 @@ function answer(type){
     return;
   }
 
-  // 3 ВОПРОС
+  // 3
   if(step === 3){
 
     if(type === "yes"){
@@ -106,12 +104,12 @@ function answer(type){
       return;
     }
 
-    q.innerText = "ну ладна";
+    q.innerText = "ну ладнааа";
     msg.innerText = "🌧";
 
     btn.innerHTML = `
       <button class="btn good" onclick="window.open('https://rainymood.com/', '_blank')">
-        ладна
+        ок
       </button>
     `;
 
