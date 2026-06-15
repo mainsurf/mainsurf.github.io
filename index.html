@@ -11,7 +11,6 @@
 
 <div class="glow"></div>
 
-<!-- 📸 фон-карточки -->
 <div class="gallery">
   <img src="images/photo1.jpg">
   <img src="images/photo2.jpg">
@@ -22,22 +21,14 @@
 
 <div class="card" id="card">
 
-  <div class="title">
-    <img src="images/heart.svg" class="icon">
-    invite system
-  </div>
+  <div class="title">invite system</div>
 
   <div id="question" class="question">Ты устала?</div>
 
   <div id="buttons" class="buttons">
 
-    <button class="btn danger" onclick="answer('yes')">
-      <img src="images/star.svg" class="icon"> да
-    </button>
-
-    <button class="btn good" onclick="answer('no')">
-      <img src="images/play.svg" class="icon"> нет
-    </button>
+    <button class="btn danger" onclick="answer('yes')">да</button>
+    <button class="btn good" onclick="answer('no')">нет</button>
 
   </div>
 
@@ -54,7 +45,7 @@ const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
 const card = document.getElementById("card");
 
-function anim(){
+function animate(){
   card.classList.add("pop");
   setTimeout(()=>card.classList.remove("pop"),300);
 }
@@ -64,10 +55,23 @@ function stop(){
   locked = true;
 }
 
-function answer(type){
-  if(locked) return;
+/* 🔙 кнопка назад */
+function back(){
+  locked = false;
+  step = 1;
+  msg.innerText = "";
+  q.innerText = "Ты устала?";
 
-  anim();
+  btn.innerHTML = `
+    <button class="btn danger" onclick="answer('yes')">да</button>
+    <button class="btn good" onclick="answer('no')">нет</button>
+  `;
+}
+
+function answer(type){
+  if(locked && type !== 'back') return;
+
+  animate();
 
   // 1
   if(step === 1){
@@ -75,7 +79,11 @@ function answer(type){
     if(type === "yes"){
       q.innerText = "закрой сайт и отдохни";
       msg.innerText = "💤";
-      stop();
+
+      btn.innerHTML = `
+        <button class="btn back" onclick="back()">назад</button>
+      `;
+      locked = true;
       return;
     }
 
@@ -95,7 +103,11 @@ function answer(type){
     if(type === "bad"){
       q.innerText = "надеюсь станет лучше";
       msg.innerText = "💙";
-      stop();
+
+      btn.innerHTML = `
+        <button class="btn back" onclick="back()">назад</button>
+      `;
+      locked = true;
       return;
     }
 
