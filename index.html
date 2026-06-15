@@ -1,140 +1,265 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>invite</title>
-<link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Момент выбора</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
 
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0b10;
+            color: white;
+            overflow: hidden;
+        }
+
+        .wrap {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 90px);
+            grid-gap: 10px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .gallery img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 14px;
+            opacity: 0.75;
+            transform: scale(0.95);
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            opacity: 1;
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .card {
+            width: 320px;
+            padding: 30px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.12);
+            text-align: center;
+            animation: pop 0.8s ease;
+            transition: all 0.3s;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+        }
+
+        .title {
+            opacity: 0.7;
+            font-size: 14px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            font-size: 0.95rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .danger {
+            background: rgba(255,80,120,0.2);
+            border: 1px solid rgba(255,80,120,0.3);
+        }
+        .danger:hover {
+            background: rgba(255,80,120,0.35);
+            border-color: rgba(255,120,150,0.6);
+        }
+
+        .good {
+            background: rgba(120,255,200,0.15);
+            border: 1px solid rgba(120,255,200,0.3);
+        }
+        .good:hover {
+            background: rgba(120,255,200,0.3);
+        }
+
+        .msg {
+            margin-top: 18px;
+            opacity: 0.7;
+            font-size: 13px;
+            transition: 0.2s;
+            min-height: 48px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.92); opacity: 0; backdrop-filter: blur(0px);}
+            to { transform: scale(1); opacity: 1; backdrop-filter: blur(18px);}
+        }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @media (max-width: 600px) {
+            .wrap {
+                gap: 12px;
+                flex-direction: column;
+            }
+            .gallery {
+                grid-template-columns: repeat(2, 70px);
+                grid-gap: 8px;
+            }
+            .gallery img {
+                width: 70px;
+                height: 70px;
+            }
+            .card {
+                width: 280px;
+                padding: 22px;
+            }
+            .question {
+                font-size: 18px;
+            }
+            .btn {
+                padding: 9px 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        .gallery img:nth-child(1) { background: #2a2e45; object-position: 20% 30%; }
+        .gallery img:nth-child(2) { background: #2d2a3e; object-position: 40% 60%; }
+        .gallery img:nth-child(3) { background: #1f2a2f; object-position: 55% 45%; }
+        .gallery img:nth-child(4) { background: #2e2538; object-position: 70% 50%; }
+    </style>
+</head>
 <body>
 
-<div class="glow"></div>
+<div class="wrap">
+    <div class="gallery">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23322f47'/%3E%3Ccircle cx='50' cy='45' r='16' fill='%23a29bfe' opacity='0.4'/%3E%3Cpath d='M20 75 L80 75 L65 55 L45 70 L30 50 Z' fill='%23fdcb6e' opacity='0.3'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232b2c44'/%3E%3Cpath d='M25 40 L45 25 L70 45 L55 70 L30 60 Z' fill='%23ff7675' opacity='0.35'/%3E%3Ccircle cx='70' cy='30' r='8' fill='%2374b9ff' opacity='0.5'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%233c354f'/%3E%3Cpath d='M30 70 L70 70 L50 40 Z' fill='%2355efc4' opacity='0.35'/%3E%3Crect x='20' y='25' width='25' height='25' fill='%23ffeaa7' opacity='0.3'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2341416b'/%3E%3Cpath d='M45 20 L80 30 L70 70 L30 80 L18 45 Z' fill='%23e17055' opacity='0.3'/%3E%3C/svg%3E" alt="">
+    </div>
 
-<div class="gallery">
-  <img src="images/photo1.jpg">
-  <img src="images/photo2.jpg">
-  <img src="images/photo3.jpg">
-  <img src="images/photo4.jpg">
-  <img src="images/photo5.jpg">
-</div>
+    <div class="card" id="mainCard">
+        <div class="title">✧ ТИХИЙ ВЕЧЕР ✧</div>
+        <div class="question" id="questionText">Ты чувствуешь, что внутри закипает?<br>Как поступишь?</div>
+        <div class="buttons">
+            <button class="btn danger" id="btnBad">🌊 Сорваться / накричать</button>
+            <button class="btn good" id="btnGood">🍃 Замедлиться / выдохнуть</button>
+        </div>
+        <div class="msg" id="messageBox">нажми на один из вариантов</div>
+    </div>
 
-<div class="card" id="card">
-
-  <div class="title">Кирюша спрашивает:</div>
-
-  <div id="question" class="question">Ты устала?</div>
-
-  <div id="buttons" class="buttons">
-
-    <button class="btn danger" onclick="answer('yes')">да</button>
-    <button class="btn good" onclick="answer('no')">нет</button>
-
-  </div>
-
-  <div id="msg" class="msg"></div>
-
+    <div class="gallery">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23322f47'/%3E%3Ccircle cx='50' cy='45' r='16' fill='%23a29bfe' opacity='0.4'/%3E%3Cpath d='M20 75 L80 75 L65 55 L45 70 L30 50 Z' fill='%23fdcb6e' opacity='0.3'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232b2c44'/%3E%3Cpath d='M25 40 L45 25 L70 45 L55 70 L30 60 Z' fill='%23ff7675' opacity='0.35'/%3E%3Ccircle cx='70' cy='30' r='8' fill='%2374b9ff' opacity='0.5'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%233c354f'/%3E%3Cpath d='M30 70 L70 70 L50 40 Z' fill='%2355efc4' opacity='0.35'/%3E%3Crect x='20' y='25' width='25' height='25' fill='%23ffeaa7' opacity='0.3'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2341416b'/%3E%3Cpath d='M45 20 L80 30 L70 70 L30 80 L18 45 Z' fill='%23e17055' opacity='0.3'/%3E%3C/svg%3E" alt="">
+    </div>
 </div>
 
 <script>
-let step = 1;
-let locked = false;
+    (function() {
+        const questionEl = document.getElementById('questionText');
+        const msgBox = document.getElementById('messageBox');
+        const btnBad = document.getElementById('btnBad');
+        const btnGood = document.getElementById('btnGood');
+        const card = document.getElementById('mainCard');
 
-const q = document.getElementById("question");
-const btn = document.getElementById("buttons");
-const msg = document.getElementById("msg");
-const card = document.getElementById("card");
+        let timeoutId = null;
 
-function animate(){
-  card.classList.add("pop");
-  setTimeout(()=>card.classList.remove("pop"),300);
-}
+        function clearTimer() {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+        }
 
-function stop(){
-  btn.innerHTML = "";
-  locked = true;
-}
+        function resetToNeutral(delay = 2200) {
+            clearTimer();
+            timeoutId = setTimeout(() => {
+                questionEl.innerHTML = "Ты чувствуешь, что внутри закипает?<br>Как поступишь?";
+                msgBox.innerHTML = "выбери снова — дыхание свободно";
+                msgBox.style.opacity = "0.7";
+                card.style.borderColor = "rgba(255,255,255,0.12)";
+                timeoutId = null;
+            }, delay);
+        }
 
-function back(){
-  locked = false;
-  step = 1;
-  msg.innerText = "";
-  q.innerText = "Ты устала?";
+        btnBad.addEventListener('click', () => {
+            clearTimer();
+            questionEl.innerHTML = "✧ Горячая волна ✧";
+            msgBox.innerHTML = "Ты сорвался, слова летят. Горький привкус... Сделай глоток воды. Попробуй иначе в следующий раз.";
+            msgBox.style.opacity = "0.9";
+            card.style.borderColor = "rgba(255,80,120,0.5)";
+            resetToNeutral(2800);
+        });
 
-  btn.innerHTML = `
-    <button class="btn danger" onclick="answer('yes')">да</button>
-    <button class="btn good" onclick="answer('no')">нет</button>
-  `;
-}
-
-function answer(type){
-  if(locked && type !== 'back') return;
-
-  animate();
-
-  if(step === 1){
-
-    if(type === "yes"){
-      q.innerText = "закрой сайт и отдохни";
-      msg.innerText = "💤";
-
-      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
-      locked = true;
-      return;
-    }
-
-    step++;
-    q.innerText = "как настроение?";
-
-    btn.innerHTML = `
-      <button class="btn good" onclick="answer('good')">все хорошо</button>
-      <button class="btn danger" onclick="answer('bad')">плохо</button>
-    `;
-    return;
-  }
-
-  if(step === 2){
-
-    if(type === "bad"){
-      q.innerText = "надеюсь станет лучше";
-      msg.innerText = "💙";
-
-      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
-      locked = true;
-      return;
-    }
-
-    step++;
-    q.innerText = "пойдём в Discord?";
-
-    btn.innerHTML = `
-      <button class="btn good" onclick="answer('yes')">да</button>
-      <button class="btn danger" onclick="answer('no')">нет</button>
-    `;
-    return;
-  }
-
-  if(step === 3){
-
-    if(type === "yes"){
-      window.open("https://t.me/ffweld?text=пойдем!", "_blank");
-      return;
-    }
-
-    q.innerText = "ну ладнааа";
-    msg.innerText = "🌧";
-
-    btn.innerHTML = `
-      <button class="btn good" onclick="window.open('https://rainymood.com/', '_blank')">
-        ок
-      </button>
-    `;
-
-    stop();
-    return;
-  }
-}
+        btnGood.addEventListener('click', () => {
+            clearTimer();
+            questionEl.innerHTML = "❀ Тишина внутри ❀";
+            msgBox.innerHTML = "Ты сделал паузу, глубоко вздохнул. Напряжение тает. В этом есть сила.";
+            msgBox.style.opacity = "0.9";
+            card.style.borderColor = "rgba(120,255,200,0.5)";
+            resetToNeutral(2600);
+        });
+    })();
 </script>
-
 </body>
 </html>
