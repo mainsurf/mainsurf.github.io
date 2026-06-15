@@ -13,153 +13,161 @@
   src: url("ISAACFONTDESCRIPTIONENGRUS-FILL_0.TTF");
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-height:100vh;
-overflow:hidden;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#06060a;
-color:white;
-font-family:"IsaacOriginal", system-ui;
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #050507;
+  color: #e6e6e6;
+  font-family: "IsaacOriginal", system-ui;
 }
 
-.glow{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.10), transparent 35%),
-radial-gradient(circle at 70% 20%, rgba(200,200,200,0.08), transparent 40%),
-radial-gradient(circle at 50% 80%, rgba(160,160,160,0.06), transparent 55%);
-filter:blur(70px);
-animation:moveGlow 8s infinite alternate;
-z-index:-3;
+.glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 42%),
+    radial-gradient(circle at 70% 20%, rgba(200,200,200,0.04), transparent 48%),
+    radial-gradient(circle at 50% 80%, rgba(140,140,140,0.03), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02), transparent 60%);
+  filter: blur(90px);
+  animation: moveGlow 10s infinite alternate;
+  z-index: -3;
 }
 
-.gallery{
-position:absolute;
-width:900px;
-height:700px;
+.gallery {
+  position: absolute;
+  width: 900px;
+  height: 700px;
 }
 
-.gallery img{
-position:absolute;
-width:180px;
-height:180px;
-object-fit:cover;
-border-radius:18px;
-opacity:0.65;
-filter:blur(1.5px) brightness(0.7);
-animation:float 7s ease-in-out infinite;
-transition:0.3s;
+.gallery img {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+  opacity: 0.45;
+  filter: blur(2px) brightness(0.55) grayscale(1);
+  animation: float 7s ease-in-out infinite;
+  transition: 0.3s;
 }
 
-.gallery img:nth-child(1){top:0;left:45%;}
-.gallery img:nth-child(2){bottom:0;left:40%;}
-.gallery img:nth-child(3){left:0;top:45%;}
-.gallery img:nth-child(4){right:0;top:40%;}
-.gallery img:nth-child(5){top:50%;left:50%;transform:translate(-50%,-50%);}
-
-@media (max-width:600px){
-
-.gallery img{
-width:140px;
-height:140px;
-opacity:0.6;
+.gallery img:nth-child(1) { top: 0; left: 45%; }
+.gallery img:nth-child(2) { bottom: 0; left: 40%; }
+.gallery img:nth-child(3) { left: 0; top: 45%; }
+.gallery img:nth-child(4) { right: 0; top: 40%; }
+.gallery img:nth-child(5) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.gallery img:nth-child(3),
-.gallery img:nth-child(4),
-.gallery img:nth-child(5){
-display:none;
+@media (max-width: 600px) {
+  .gallery img {
+    width: 140px;
+    height: 140px;
+    opacity: 0.4;
+  }
+
+  .gallery img:nth-child(3),
+  .gallery img:nth-child(4),
+  .gallery img:nth-child(5) {
+    display: none;
+  }
+
+  .gallery img:nth-child(1) {
+    top: 10%;
+    left: 10%;
+  }
+
+  .gallery img:nth-child(2) {
+    bottom: 10%;
+    right: 10%;
+  }
 }
 
-.gallery img:nth-child(1){
-top:10%;
-left:10%;
+.card {
+  width: 340px;
+  padding: 30px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  animation: pop 0.6s ease;
+  box-shadow: 0 25px 90px rgba(0,0,0,0.75);
 }
 
-.gallery img:nth-child(2){
-bottom:10%;
-right:10%;
-}
-}
-
-.card{
-width:340px;
-padding:30px;
-border-radius:24px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.12);
-text-align:center;
-animation:pop 0.6s ease;
-box-shadow:0 20px 80px rgba(0,0,0,0.6);
+.title {
+  font-family: "IsaacFill";
+  opacity: 0.75;
+  margin-bottom: 15px;
+  font-size: 16px;
 }
 
-.title{
-font-family:"IsaacFill";
-opacity:0.8;
-margin-bottom:15px;
-font-size:16px;
+.question {
+  font-size: 22px;
+  margin-bottom: 20px;
+  animation: textIn 0.4s ease;
+  font-family: "IsaacOriginal";
 }
 
-.question{
-font-size:22px;
-margin-bottom:20px;
-animation:textIn 0.4s ease;
-font-family:"IsaacOriginal";
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.buttons{
-display:flex;
-gap:12px;
-justify-content:center;
-flex-wrap:wrap;
+.btn {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  color: #e6e6e6;
+  background: rgba(255,255,255,0.06);
+  transition: 0.25s;
+  font-family: "IsaacOriginal";
 }
 
-.btn{
-padding:12px 14px;
-border-radius:14px;
-border:none;
-cursor:pointer;
-color:white;
-background:rgba(255,255,255,0.08);
-transition:0.25s;
-font-family:"IsaacOriginal";
+.btn:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.1);
 }
 
-.btn:hover{
-transform:scale(1.08);
+.danger,
+.good,
+.back {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-.danger{background:rgba(255,80,120,0.25);}
-.good{background:rgba(120,255,200,0.18);}
-.back{background:rgba(255,255,255,0.12);}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-18px);}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 
-@keyframes moveGlow{
-0%{transform:translateX(-20px);}
-100%{transform:translateX(20px);}
+@keyframes moveGlow {
+  0% { transform: translateX(-20px); }
+  100% { transform: translateX(20px); }
 }
 
-@keyframes pop{
-0%{transform:scale(0.95);}
-50%{transform:scale(1.03);}
-100%{transform:scale(1);}
+@keyframes pop {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
-@keyframes textIn{
-from{opacity:0;transform:translateY(8px);}
-to{opacity:1;transform:translateY(0);}
+@keyframes textIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
