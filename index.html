@@ -21,7 +21,7 @@
 
 <div class="card" id="card">
 
-  <div class="title">invite system</div>
+  <div class="title">Кирюша спрашивает:</div>
 
   <div id="question" class="question">Ты устала?</div>
 
@@ -55,7 +55,6 @@ function stop(){
   locked = true;
 }
 
-/* 🔙 кнопка назад */
 function back(){
   locked = false;
   step = 1;
@@ -73,16 +72,13 @@ function answer(type){
 
   animate();
 
-  // 1
   if(step === 1){
 
     if(type === "yes"){
       q.innerText = "закрой сайт и отдохни";
       msg.innerText = "💤";
 
-      btn.innerHTML = `
-        <button class="btn back" onclick="back()">назад</button>
-      `;
+      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
       locked = true;
       return;
     }
@@ -97,16 +93,13 @@ function answer(type){
     return;
   }
 
-  // 2
   if(step === 2){
 
     if(type === "bad"){
       q.innerText = "надеюсь станет лучше";
       msg.innerText = "💙";
 
-      btn.innerHTML = `
-        <button class="btn back" onclick="back()">назад</button>
-      `;
+      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
       locked = true;
       return;
     }
@@ -121,7 +114,6 @@ function answer(type){
     return;
   }
 
-  // 3
   if(step === 3){
 
     if(type === "yes"){
