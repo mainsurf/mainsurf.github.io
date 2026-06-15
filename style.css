@@ -1,0 +1,32 @@
+body{
+margin:0;
+font-family:system-ui;
+background:#0f0f14;
+color:white;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:18px;
+padding:20px;
+}
+
+.img-card{
+border-radius:22px;
+overflow:hidden;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.12);
+transition:0.3s;
+}
+
+.img-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.img-card:hover{
+transform:scale(1.03);
+}
