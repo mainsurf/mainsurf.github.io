@@ -3,149 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>mainsurf — invite</title>
+<title>mainsurf invite</title>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:system-ui, sans-serif;
-}
-
-body{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:radial-gradient(circle at top,#ff6fd8,#7357ff,#0b0b12);
-overflow:hidden;
-color:white;
-}
-
-.glass{
-width:92%;
-max-width:520px;
-padding:35px;
-border-radius:25px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,0.12);
-box-shadow:0 0 60px rgba(0,0,0,0.4);
-text-align:center;
-position:relative;
-animation:fadeIn 1s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-.title{
-font-size:26px;
-margin-bottom:18px;
-letter-spacing:1px;
-opacity:0.9;
-}
-
-.question{
-font-size:22px;
-min-height:60px;
-transition:0.4s ease;
-}
-
-.buttons{
-margin-top:25px;
-display:flex;
-gap:12px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-.btn{
-padding:12px 18px;
-border-radius:14px;
-cursor:pointer;
-border:none;
-font-weight:600;
-transition:0.25s;
-display:flex;
-align-items:center;
-gap:8px;
-color:white;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.12);
-}
-
-.btn:hover{
-transform:scale(1.05);
-background:rgba(255,255,255,0.14);
-}
-
-.icon{
-width:18px;
-height:18px;
-filter:drop-shadow(0 0 6px rgba(255,255,255,0.3));
-}
-
-.danger{
-background:rgba(255,80,120,0.25);
-}
-
-.good{
-background:rgba(120,255,200,0.18);
-}
-
-.hidden{
-display:none;
-}
-
-.fade{
-animation:fade 0.5s ease;
-}
-
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-.msg{
-margin-top:18px;
-opacity:0.8;
-font-size:14px;
-}
-
-a{
-text-decoration:none;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="glass">
+<div class="bg"></div>
 
-<div class="title">mainsurf invite system</div>
+<div class="card">
 
-<div id="question" class="question fade">Ты устала?</div>
+  <div class="title">mainsurf • invite system</div>
 
-<div id="buttons" class="buttons">
+  <div id="question" class="question">
+    Ты устала?
+  </div>
 
-<button class="btn danger" onclick="ans('yes')">
-<img src="images/heart.svg" class="icon">
-да устала
-</button>
+  <div id="photos" class="photos hidden">
+    <img src="images/photo1.jpg">
+    <img src="images/photo2.jpg">
+    <img src="images/photo3.jpg">
+    <img src="images/photo4.jpg">
+    <img src="images/photo5.jpg">
+  </div>
 
-<button class="btn good" onclick="ans('no')">
-<img src="images/star.svg" class="icon">
-нет всё отлично
-</button>
+  <div id="buttons" class="buttons">
 
-</div>
+    <button class="btn danger" onclick="answer('yes')">
+      я устала
+    </button>
 
-<div id="msg" class="msg"></div>
+    <button class="btn good" onclick="answer('no')">
+      всё хорошо
+    </button>
+
+  </div>
+
+  <div id="msg" class="msg"></div>
 
 </div>
 
@@ -155,62 +50,56 @@ let step = 1;
 const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
+const photos = document.getElementById("photos");
 
-function render(text){
-q.classList.remove("fade");
-void q.offsetWidth;
-q.classList.add("fade");
-q.innerText = text;
-}
+function answer(type){
 
-function ans(type){
-
+// ❗ первый вопрос
 if(step === 1){
 
 if(type === "yes"){
-btn.innerHTML = "";
-render("закрой сайт и отдохни");
-msg.innerText = "состояние: пауза";
+msg.innerText = "закрой сайт и отдохни.";
+// но НЕ блокируем кнопки (как ты хотел)
+step++;
 return;
 }
 
 step++;
-render("Хочешь немного прогуляться перед фильмом?");
+q.innerText = "Хочешь ли ты немного прогуляться перед фильмом?";
 return;
 }
 
 if(step === 2){
 step++;
-render("Любишь уютные фильмы?");
+q.innerText = "Любишь ли ты уютные вечера?";
 return;
 }
 
 if(step === 3){
 step++;
-render("Плед, чай и кино — звучит хорошо?");
+q.innerText = "Плед, чай и фильм — звучит хорошо?";
 return;
 }
 
 if(step === 4){
 step++;
-render("Можно я тебя позову посмотреть фильм?");
+q.innerText = "Можно я тебя позову смотреть фильм?";
 return;
 }
 
 if(step === 5){
 
-render("всё готово");
+q.innerText = "готово.";
+
+photos.classList.remove("hidden");
 
 btn.innerHTML = `
 <a href="https://t.me/ffweld?text=%D0%BE%D0%BA%D0%B5">
-<button class="btn good">
-<img src="images/telegram.svg" class="icon">
-перейти в telegram
-</button>
+<button class="btn good">перейти в тг</button>
 </a>
 `;
 
-msg.innerText = "ожидаю ответ...";
+msg.innerText = "я уже всё подготовил.";
 }
 }
 </script>
