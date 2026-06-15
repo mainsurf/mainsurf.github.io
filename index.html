@@ -9,22 +9,34 @@
 
 <body>
 
-<div class="bg"></div>
+<div class="wrap">
 
-<div class="card">
-
-  <div class="title">invite</div>
-
-  <div id="question" class="question">Ты устала?</div>
-
-  <div id="buttons" class="buttons">
-
-    <button class="btn danger" onclick="answer('yes')">да</button>
-    <button class="btn good" onclick="answer('no')">нет</button>
-
+  <!-- 📸 ГАЛЕРЕЯ ВОКРУГ -->
+  <div class="gallery">
+    <img src="images/photo1.jpg">
+    <img src="images/photo2.jpg">
+    <img src="images/photo3.jpg">
+    <img src="images/photo4.jpg">
+    <img src="images/photo5.jpg">
   </div>
 
-  <div id="msg" class="msg"></div>
+  <!-- 🧊 КАРТОЧКА -->
+  <div class="card">
+
+    <div class="title">invite system</div>
+
+    <div id="question" class="question">Ты устала?</div>
+
+    <div id="buttons" class="buttons">
+
+      <button class="btn danger" onclick="answer('yes')">да</button>
+      <button class="btn good" onclick="answer('no')">нет</button>
+
+    </div>
+
+    <div id="msg" class="msg"></div>
+
+  </div>
 
 </div>
 
@@ -35,18 +47,6 @@ let locked = false;
 const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
-
-/* 📸 рандом фон */
-const photos = [
-  "images/photo1.jpg",
-  "images/photo2.jpg",
-  "images/photo3.jpg",
-  "images/photo4.jpg",
-  "images/photo5.jpg"
-];
-
-document.querySelector(".bg").style.backgroundImage =
-  `url('${photos[Math.floor(Math.random() * photos.length)]}')`;
 
 function stop(){
   btn.innerHTML = "";
