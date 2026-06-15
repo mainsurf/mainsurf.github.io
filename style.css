@@ -1,76 +1,130 @@
+@font-face {
+  font-family: "IsaacFill";
+  src: url("ISAACFONTDESCRIPTIONENGRUS-FILL_0.TTF");
+}
+
+@font-face {
+  font-family: "IsaacOriginal";
+  src: url("ISAACFONTDESCRIPTIONENGRUS-ORIGINAL-SVG_0.TTF");
+}
+
+@font-face {
+  font-family: "IsaacOutline";
+  src: url("ISAACFONTDESCRIPTIONENGRUS-OUTLINE_0.TTF");
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:system-ui;
 }
 
 body{
 height:100vh;
+overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#0b0b10;
+background:#06060a;
 color:white;
-overflow:hidden;
+font-family:"IsaacOriginal", system-ui;
 }
 
-/* 📦 общий контейнер */
-.wrap{
-display:flex;
-gap:30px;
-align-items:center;
-animation:fadeIn 1s ease;
+/* 🌈 фон */
+.glow{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 30%, rgba(255,0,150,0.25), transparent 40%),
+radial-gradient(circle at 70% 20%, rgba(0,200,255,0.20), transparent 45%),
+radial-gradient(circle at 50% 80%, rgba(120,255,180,0.15), transparent 50%);
+filter:blur(70px);
+animation:moveGlow 8s infinite alternate;
+z-index:-3;
 }
 
-/* 📸 галерея вокруг */
+/* 📸 фотки */
 .gallery{
-display:grid;
-grid-template-columns:repeat(2,90px);
-grid-gap:10px;
-animation:float 6s ease-in-out infinite;
+position:absolute;
+width:900px;
+height:700px;
 }
 
 .gallery img{
-width:90px;
-height:90px;
+position:absolute;
+width:180px;
+height:180px;
 object-fit:cover;
-border-radius:14px;
-opacity:0.75;
-transform:scale(0.95);
+border-radius:18px;
+opacity:0.65;
+filter:blur(1.5px) brightness(0.7);
+animation:float 7s ease-in-out infinite;
 transition:0.3s;
 }
 
-.gallery img:hover{
-transform:scale(1.05);
-opacity:1;
+/* 📍 позиция */
+.gallery img:nth-child(1){top:0;left:45%;}
+.gallery img:nth-child(2){bottom:0;left:40%;}
+.gallery img:nth-child(3){left:0;top:45%;}
+.gallery img:nth-child(4){right:0;top:40%;}
+.gallery img:nth-child(5){top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* 📱 МОБИЛКА — ТОЛЬКО 2 ФОТО */
+@media (max-width:600px){
+
+.gallery img{
+width:140px;
+height:140px;
+opacity:0.6;
+}
+
+.gallery img:nth-child(3),
+.gallery img:nth-child(4),
+.gallery img:nth-child(5){
+display:none;
+}
+
+.gallery img:nth-child(1){
+top:10%;
+left:10%;
+}
+
+.gallery img:nth-child(2){
+bottom:10%;
+right:10%;
+}
 }
 
 /* 🧊 карточка */
 .card{
-width:320px;
+width:340px;
 padding:30px;
 border-radius:24px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(18px);
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
 border:1px solid rgba(255,255,255,0.12);
 text-align:center;
-animation:pop 0.8s ease;
+animation:pop 0.6s ease;
+box-shadow:0 20px 80px rgba(0,0,0,0.6);
 }
 
+/* 🧠 заголовок */
 .title{
-opacity:0.7;
-font-size:14px;
+font-family:"IsaacFill";
+opacity:0.8;
 margin-bottom:15px;
-letter-spacing:2px;
+font-size:16px;
 }
 
+/* текст */
 .question{
 font-size:22px;
 margin-bottom:20px;
-transition:0.3s;
+animation:textIn 0.4s ease;
+font-family:"IsaacOriginal";
 }
 
+/* кнопки */
 .buttons{
 display:flex;
 gap:12px;
@@ -78,51 +132,43 @@ justify-content:center;
 flex-wrap:wrap;
 }
 
-/* 🔘 кнопки */
 .btn{
 padding:12px 14px;
 border-radius:14px;
 border:none;
 cursor:pointer;
 color:white;
-font-weight:600;
 background:rgba(255,255,255,0.08);
-display:flex;
-align-items:center;
-gap:8px;
-transition:0.2s;
+transition:0.25s;
+font-family:"IsaacOriginal";
 }
 
 .btn:hover{
-transform:scale(1.05);
+transform:scale(1.08);
 }
 
-.danger{
-background:rgba(255,80,120,0.2);
-}
-
-.good{
-background:rgba(120,255,200,0.15);
-}
-
-.msg{
-margin-top:15px;
-opacity:0.7;
-font-size:13px;
-}
+.danger{background:rgba(255,80,120,0.25);}
+.good{background:rgba(120,255,200,0.18);}
+.back{background:rgba(255,255,255,0.12);}
 
 /* ✨ анимации */
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-18px);}
+}
+
+@keyframes moveGlow{
+0%{transform:translateX(-20px);}
+100%{transform:translateX(20px);}
 }
 
 @keyframes pop{
-from{transform:scale(0.9); opacity:0;}
-to{transform:scale(1); opacity:1;}
+0%{transform:scale(0.95);}
+50%{transform:scale(1.03);}
+100%{transform:scale(1);}
 }
 
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
+@keyframes textIn{
+from{opacity:0;transform:translateY(8px);}
+to{opacity:1;transform:translateY(0);}
 }
