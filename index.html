@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>invite</title>
+<title>Kiryuha</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,15 +11,13 @@
 
 <div class="glow"></div>
 
-<div class="gallery">
-  <img src="images/photo1.jpg">
-  <img src="images/photo2.jpg">
-  <img src="images/photo3.jpg">
-  <img src="images/photo4.jpg">
-  <img src="images/photo5.jpg">
+<!-- 📸 2 СЛОТА ФОТО -->
+<div class="photos">
+  <img id="imgA" src="images/photo1.jpg">
+  <img id="imgB" src="images/photo2.jpg">
 </div>
 
-<div class="card" id="card">
+<div class="card">
 
   <div class="title">Кирюша спрашивает:</div>
 
@@ -43,42 +41,46 @@ let locked = false;
 const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
-const card = document.getElementById("card");
 
-function animate(){
-  card.classList.add("pop");
-  setTimeout(()=>card.classList.remove("pop"),300);
+const imgA = document.getElementById("imgA");
+const imgB = document.getElementById("imgB");
+
+const photos = [
+  "images/photo1.jpg",
+  "images/photo2.jpg",
+  "images/photo3.jpg",
+  "images/photo4.jpg",
+  "images/photo5.jpg"
+];
+
+let index = 2;
+let toggle = false;
+
+/* 🔁 плавная смена фото */
+function swapPhotos(){
+  index = (index + 1) % photos.length;
+
+  const next = photos[index];
+
+  if(toggle){
+    imgA.src = next;
+  } else {
+    imgB.src = next;
+  }
+
+  toggle = !toggle;
 }
 
-function stop(){
-  btn.innerHTML = "";
-  locked = true;
-}
-
-function back(){
-  locked = false;
-  step = 1;
-  msg.innerText = "";
-  q.innerText = "Ты устала?";
-
-  btn.innerHTML = `
-    <button class="btn danger" onclick="answer('yes')">да</button>
-    <button class="btn good" onclick="answer('no')">нет</button>
-  `;
-}
+setInterval(swapPhotos, 3500);
 
 function answer(type){
-  if(locked && type !== 'back') return;
-
-  animate();
+  if(locked) return;
 
   if(step === 1){
 
     if(type === "yes"){
       q.innerText = "закрой сайт и отдохни";
       msg.innerText = "💤";
-
-      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
       locked = true;
       return;
     }
@@ -98,8 +100,6 @@ function answer(type){
     if(type === "bad"){
       q.innerText = "надеюсь станет лучше";
       msg.innerText = "💙";
-
-      btn.innerHTML = `<button class="btn back" onclick="back()">назад</button>`;
       locked = true;
       return;
     }
@@ -130,7 +130,7 @@ function answer(type){
       </button>
     `;
 
-    stop();
+    locked = true;
     return;
   }
 }
