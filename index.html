@@ -21,11 +21,11 @@
   </div>
 
   <div id="photos" class="photos hidden">
-    <img src="images/photo1.jpg">
-    <img src="images/photo2.jpg">
-    <img src="images/photo3.jpg">
-    <img src="images/photo4.jpg">
-    <img src="images/photo5.jpg">
+    <img loading="lazy" src="images/photo1.jpg">
+    <img loading="lazy" src="images/photo2.jpg">
+    <img loading="lazy" src="images/photo3.jpg">
+    <img loading="lazy" src="images/photo4.jpg">
+    <img loading="lazy" src="images/photo5.jpg">
   </div>
 
   <div id="buttons" class="buttons">
@@ -54,53 +54,44 @@ const photos = document.getElementById("photos");
 
 function answer(type){
 
-// ❗ первый вопрос
+// ❗ ВОПРОС 1
 if(step === 1){
 
-if(type === "yes"){
-msg.innerText = "закрой сайт и отдохни.";
-// но НЕ блокируем кнопки (как ты хотел)
-step++;
-return;
+  if(type === "yes"){
+    q.innerText = "тогда просто отдохни. не надо себя заставлять.";
+    msg.innerText = "💤";
+    btn.innerHTML = "";
+    return; // стоп сценарий
+  }
+
+  step++;
+  q.innerText = "может пойдем в Discord?";
+  msg.innerText = "";
+  return;
 }
 
-step++;
-q.innerText = "Хочешь ли ты немного прогуляться перед фильмом?";
-return;
-}
-
+// ❗ ВОПРОС 2
 if(step === 2){
-step++;
-q.innerText = "Любишь ли ты уютные вечера?";
-return;
+
+  if(type === "yes"){
+    msg.innerText = "открываю Discord...";
+    window.open("https://discord.com/channels/@me", "_blank");
+    return;
+  }
+
+  // НЕА
+  q.innerText = "ну ладна";
+  msg.innerText = "";
+
+  btn.innerHTML = `
+    <button class="btn good" onclick="window.open('https://rainymood.com/', '_blank')">
+      ладна
+    </button>
+  `;
+
+  return;
 }
 
-if(step === 3){
-step++;
-q.innerText = "Плед, чай и фильм — звучит хорошо?";
-return;
-}
-
-if(step === 4){
-step++;
-q.innerText = "Можно я тебя позову смотреть фильм?";
-return;
-}
-
-if(step === 5){
-
-q.innerText = "готово.";
-
-photos.classList.remove("hidden");
-
-btn.innerHTML = `
-<a href="https://t.me/ffweld?text=%D0%BE%D0%BA%D0%B5">
-<button class="btn good">перейти в тг</button>
-</a>
-`;
-
-msg.innerText = "я уже всё подготовил.";
-}
 }
 </script>
 
