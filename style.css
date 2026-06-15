@@ -11,42 +11,41 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:#0b0b10;
-color:white;
 overflow:hidden;
+color:white;
 }
 
-/* 📦 общий контейнер */
-.wrap{
-display:flex;
-gap:30px;
-align-items:center;
-animation:fadeIn 1s ease;
-}
-
-/* 📸 галерея вокруг */
+/* 📸 фотки вокруг */
 .gallery{
-display:grid;
-grid-template-columns:repeat(2,90px);
-grid-gap:10px;
-animation:float 6s ease-in-out infinite;
+position:absolute;
+inset:0;
+pointer-events:none;
 }
 
 .gallery img{
-width:90px;
-height:90px;
+position:absolute;
+width:110px;
+height:110px;
 object-fit:cover;
-border-radius:14px;
-opacity:0.75;
-transform:scale(0.95);
+border-radius:16px;
+opacity:0.7;
+animation:float 6s ease-in-out infinite;
 transition:0.3s;
 }
 
+.gallery img:nth-child(1){top:10%;left:10%;transform:rotate(-10deg);}
+.gallery img:nth-child(2){top:15%;right:8%;width:95px;height:95px;}
+.gallery img:nth-child(3){bottom:15%;left:8%;transform:rotate(8deg);}
+.gallery img:nth-child(4){bottom:18%;right:10%;}
+.gallery img:nth-child(5){top:50%;left:3%;width:85px;height:85px;transform:translateY(-50%);}
+
 .gallery img:hover{
-transform:scale(1.05);
+transform:scale(1.1);
 opacity:1;
+z-index:3;
 }
 
-/* 🧊 карточка */
+/* карточка */
 .card{
 width:320px;
 padding:30px;
@@ -55,20 +54,18 @@ background:rgba(255,255,255,0.05);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,0.12);
 text-align:center;
-animation:pop 0.8s ease;
+animation:pop 0.7s ease;
 }
 
 .title{
 opacity:0.7;
 font-size:14px;
 margin-bottom:15px;
-letter-spacing:2px;
 }
 
 .question{
 font-size:22px;
 margin-bottom:20px;
-transition:0.3s;
 }
 
 .buttons{
@@ -78,7 +75,6 @@ justify-content:center;
 flex-wrap:wrap;
 }
 
-/* 🔘 кнопки */
 .btn{
 padding:12px 14px;
 border-radius:14px;
@@ -87,9 +83,6 @@ cursor:pointer;
 color:white;
 font-weight:600;
 background:rgba(255,255,255,0.08);
-display:flex;
-align-items:center;
-gap:8px;
 transition:0.2s;
 }
 
@@ -97,13 +90,8 @@ transition:0.2s;
 transform:scale(1.05);
 }
 
-.danger{
-background:rgba(255,80,120,0.2);
-}
-
-.good{
-background:rgba(120,255,200,0.15);
-}
+.danger{background:rgba(255,80,120,0.2);}
+.good{background:rgba(120,255,200,0.15);}
 
 .msg{
 margin-top:15px;
@@ -111,18 +99,12 @@ opacity:0.7;
 font-size:13px;
 }
 
-/* ✨ анимации */
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes pop{
-from{transform:scale(0.9); opacity:0;}
-to{transform:scale(1); opacity:1;}
-}
-
 @keyframes float{
 0%,100%{transform:translateY(0);}
 50%{transform:translateY(-10px);}
+}
+
+@keyframes pop{
+from{transform:scale(0.9);opacity:0;}
+to{transform:scale(1);opacity:1;}
 }
