@@ -5,12 +5,12 @@
 
 @font-face {
   font-family: "IsaacOriginal";
-  src: url("ISAACFONTDESCRIPTIONENGRUS-ORIGINAL-SVG_0.TTF");
+  src: url("ISAACFONTDESCRIPTIONENGRUS-FILL_0.TTF");
 }
 
 @font-face {
   font-family: "IsaacOutline";
-  src: url("ISAACFONTDESCRIPTIONENGRUS-OUTLINE_0.TTF");
+  src: url("ISAACFONTDESCRIPTIONENGRUS-FILL_0.TTF");
 }
 
 *{
@@ -30,7 +30,6 @@ color:white;
 font-family:"IsaacOriginal", system-ui;
 }
 
-/* 🌈 фон */
 .glow{
 position:fixed;
 inset:0;
@@ -43,7 +42,6 @@ animation:moveGlow 8s infinite alternate;
 z-index:-3;
 }
 
-/* 📸 фотки */
 .gallery{
 position:absolute;
 width:900px;
@@ -62,14 +60,12 @@ animation:float 7s ease-in-out infinite;
 transition:0.3s;
 }
 
-/* 📍 позиция */
 .gallery img:nth-child(1){top:0;left:45%;}
 .gallery img:nth-child(2){bottom:0;left:40%;}
 .gallery img:nth-child(3){left:0;top:45%;}
 .gallery img:nth-child(4){right:0;top:40%;}
 .gallery img:nth-child(5){top:50%;left:50%;transform:translate(-50%,-50%);}
 
-/* 📱 МОБИЛКА — ТОЛЬКО 2 ФОТО */
 @media (max-width:600px){
 
 .gallery img{
@@ -95,7 +91,6 @@ right:10%;
 }
 }
 
-/* 🧊 карточка */
 .card{
 width:340px;
 padding:30px;
@@ -108,7 +103,6 @@ animation:pop 0.6s ease;
 box-shadow:0 20px 80px rgba(0,0,0,0.6);
 }
 
-/* 🧠 заголовок */
 .title{
 font-family:"IsaacFill";
 opacity:0.8;
@@ -116,7 +110,6 @@ margin-bottom:15px;
 font-size:16px;
 }
 
-/* текст */
 .question{
 font-size:22px;
 margin-bottom:20px;
@@ -124,7 +117,6 @@ animation:textIn 0.4s ease;
 font-family:"IsaacOriginal";
 }
 
-/* кнопки */
 .buttons{
 display:flex;
 gap:12px;
@@ -151,7 +143,6 @@ transform:scale(1.08);
 .good{background:rgba(120,255,200,0.18);}
 .back{background:rgba(255,255,255,0.12);}
 
-/* ✨ анимации */
 @keyframes float{
 0%,100%{transform:translateY(0);}
 50%{transform:translateY(-18px);}
