@@ -1,53 +1,51 @@
 .photos{
 position:absolute;
 inset:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 6%;
 z-index:0;
 pointer-events:none;
 }
 
-/* ОБЩИЙ СТИЛЬ */
+/* 📸 маленькие фотки по кругу */
 .photos img{
-width:240px;
-height:240px;
+position:absolute;
+width:150px;
+height:150px;
 object-fit:cover;
-border-radius:22px;
+border-radius:18px;
 opacity:0.55;
 filter:blur(1.2px) brightness(0.7);
 transition:1s ease;
 }
 
-/* 📱 НОРМ МОБИЛКА */
+/* 📍 раскладка (НЕ НАЕЗЖАЮТ) */
+.photos img:nth-child(1){top:8%;left:45%;}
+.photos img:nth-child(2){bottom:8%;left:45%;}
+.photos img:nth-child(3){top:45%;left:6%;}
+.photos img:nth-child(4){top:45%;right:6%;}
+.photos img:nth-child(5){top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* 📱 МОБИЛКА — аккуратно, без наложений */
 @media (max-width:600px){
 
-.photos{
-padding:0 10px;
-justify-content:space-between;
-gap:10px;
-}
-
-/* делаем 2 большие “карточки” */
 .photos img{
-width:45vw;
-height:55vh;
-border-radius:18px;
-filter:blur(1px) brightness(0.65);
+width:120px;
+height:120px;
+opacity:0.6;
 }
 
-/* левое фото */
+/* 2 сверху/снизу + центр */
 .photos img:nth-child(1){
-transform:rotate(-2deg);
+top:10%;
+left:50%;
+transform:translateX(-50%);
 }
 
-/* правое фото */
 .photos img:nth-child(2){
-transform:rotate(2deg);
+bottom:10%;
+left:50%;
+transform:translateX(-50%);
 }
 
-/* ВСЁ ОСТАЛЬНОЕ СКРЫВАЕМ */
 .photos img:nth-child(n+3){
 display:none;
 }
