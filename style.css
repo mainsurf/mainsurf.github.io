@@ -15,18 +15,15 @@ overflow:hidden;
 color:white;
 }
 
-/* 🌑 фон с фото */
 .bg{
 position:fixed;
 inset:0;
-background:
-url("images/photo1.jpg") center/cover no-repeat;
+background:url("images/photo1.jpg") center/cover no-repeat;
 filter:blur(30px) brightness(0.35);
 transform:scale(1.2);
 z-index:-2;
 }
 
-/* мягкий свет */
 .bg::after{
 content:"";
 position:absolute;
@@ -36,7 +33,6 @@ radial-gradient(circle at top,#ff4fd844,transparent 60%),
 radial-gradient(circle at bottom,#6a5cff44,transparent 60%);
 }
 
-/* карточка */
 .card{
 width:92%;
 max-width:520px;
@@ -45,14 +41,7 @@ border-radius:24px;
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,0.12);
-box-shadow:0 0 60px rgba(0,0,0,0.5);
 text-align:center;
-animation:fade 1s ease;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(15px);}
-to{opacity:1; transform:translateY(0);}
 }
 
 .title{
@@ -65,7 +54,6 @@ letter-spacing:2px;
 .question{
 font-size:22px;
 margin-bottom:20px;
-transition:0.3s;
 }
 
 .buttons{
@@ -83,8 +71,6 @@ cursor:pointer;
 color:white;
 font-weight:600;
 background:rgba(255,255,255,0.08);
-transition:0.25s;
-backdrop-filter:blur(10px);
 }
 
 .btn:hover{
@@ -105,13 +91,11 @@ opacity:0.7;
 font-size:13px;
 }
 
-/* фотки */
 .photos{
 margin-top:20px;
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
-animation:fade 1s ease;
 }
 
 .photos img{
@@ -119,12 +103,6 @@ width:100%;
 height:80px;
 object-fit:cover;
 border-radius:14px;
-filter:brightness(0.8) saturate(1.2);
-transition:0.3s;
-}
-
-.photos img:hover{
-transform:scale(1.1);
 }
 
 .hidden{
