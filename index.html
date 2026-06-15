@@ -9,34 +9,39 @@
 
 <body>
 
-<div class="scene">
+<div class="glow"></div>
 
-  <!-- 📸 ГАЛЕРЕЯ -->
-  <div class="gallery">
-    <img src="images/photo1.jpg">
-    <img src="images/photo2.jpg">
-    <img src="images/photo3.jpg">
-    <img src="images/photo4.jpg">
-    <img src="images/photo5.jpg">
+<!-- 📸 фон-карточки -->
+<div class="gallery">
+  <img src="images/photo1.jpg">
+  <img src="images/photo2.jpg">
+  <img src="images/photo3.jpg">
+  <img src="images/photo4.jpg">
+  <img src="images/photo5.jpg">
+</div>
+
+<div class="card" id="card">
+
+  <div class="title">
+    <img src="images/heart.svg" class="icon">
+    invite system
   </div>
 
-  <!-- 🧊 КАРТОЧКА -->
-  <div class="card">
+  <div id="question" class="question">Ты устала?</div>
 
-    <div class="title">invite system</div>
+  <div id="buttons" class="buttons">
 
-    <div id="question" class="question">Ты устала?</div>
+    <button class="btn danger" onclick="answer('yes')">
+      <img src="images/star.svg" class="icon"> да
+    </button>
 
-    <div id="buttons" class="buttons">
-
-      <button class="btn danger" onclick="answer('yes')">да</button>
-      <button class="btn good" onclick="answer('no')">нет</button>
-
-    </div>
-
-    <div id="msg" class="msg"></div>
+    <button class="btn good" onclick="answer('no')">
+      <img src="images/play.svg" class="icon"> нет
+    </button>
 
   </div>
+
+  <div id="msg" class="msg"></div>
 
 </div>
 
@@ -47,6 +52,12 @@ let locked = false;
 const q = document.getElementById("question");
 const btn = document.getElementById("buttons");
 const msg = document.getElementById("msg");
+const card = document.getElementById("card");
+
+function anim(){
+  card.classList.add("pop");
+  setTimeout(()=>card.classList.remove("pop"),300);
+}
 
 function stop(){
   btn.innerHTML = "";
@@ -55,6 +66,8 @@ function stop(){
 
 function answer(type){
   if(locked) return;
+
+  anim();
 
   // 1
   if(step === 1){
