@@ -7,76 +7,60 @@ font-family:system-ui;
 
 body{
 height:100vh;
-overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#06060a;
+background:#0b0b10;
 color:white;
+overflow:hidden;
 }
 
-/* 🌈 живой фон */
-.glow{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 30%, rgba(255,0,150,0.25), transparent 40%),
-radial-gradient(circle at 70% 20%, rgba(0,200,255,0.20), transparent 45%),
-radial-gradient(circle at 50% 80%, rgba(120,255,180,0.15), transparent 50%);
-filter:blur(70px);
-animation:moveGlow 8s infinite alternate;
-z-index:-3;
+/* 📦 общий контейнер */
+.wrap{
+display:flex;
+gap:30px;
+align-items:center;
+animation:fadeIn 1s ease;
 }
 
-/* 📸 фотки */
+/* 📸 галерея вокруг */
 .gallery{
-position:absolute;
-width:900px;
-height:700px;
+display:grid;
+grid-template-columns:repeat(2,90px);
+grid-gap:10px;
+animation:float 6s ease-in-out infinite;
 }
 
 .gallery img{
-position:absolute;
-width:190px;
-height:190px;
+width:90px;
+height:90px;
 object-fit:cover;
-border-radius:20px;
-opacity:0.6;
-filter:blur(1.5px) brightness(0.7);
-transition:0.4s;
-animation:float 7s ease-in-out infinite;
+border-radius:14px;
+opacity:0.75;
+transform:scale(0.95);
+transition:0.3s;
 }
 
-.gallery img:nth-child(1){top:0;left:45%;}
-.gallery img:nth-child(2){bottom:0;left:40%;}
-.gallery img:nth-child(3){left:0;top:45%;}
-.gallery img:nth-child(4){right:0;top:40%;}
-.gallery img:nth-child(5){top:50%;left:50%;transform:translate(-50%,-50%);}
-
-/* hover */
 .gallery img:hover{
-transform:scale(1.2);
+transform:scale(1.05);
 opacity:1;
-filter:blur(0);
-z-index:5;
 }
 
 /* 🧊 карточка */
 .card{
-width:340px;
+width:320px;
 padding:30px;
 border-radius:24px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,0.12);
 text-align:center;
-animation:pop 0.6s ease;
-box-shadow:0 20px 80px rgba(0,0,0,0.6);
+animation:pop 0.8s ease;
 }
 
-/* текст */
 .title{
 opacity:0.7;
+font-size:14px;
 margin-bottom:15px;
 letter-spacing:2px;
 }
@@ -84,15 +68,9 @@ letter-spacing:2px;
 .question{
 font-size:22px;
 margin-bottom:20px;
-animation:textIn 0.4s ease;
+transition:0.3s;
 }
 
-.msg{
-margin-top:15px;
-opacity:0.7;
-}
-
-/* кнопки */
 .buttons{
 display:flex;
 gap:12px;
@@ -100,6 +78,7 @@ justify-content:center;
 flex-wrap:wrap;
 }
 
+/* 🔘 кнопки */
 .btn{
 padding:12px 14px;
 border-radius:14px;
@@ -108,39 +87,42 @@ cursor:pointer;
 color:white;
 font-weight:600;
 background:rgba(255,255,255,0.08);
-transition:0.25s;
+display:flex;
+align-items:center;
+gap:8px;
+transition:0.2s;
 }
 
 .btn:hover{
-transform:scale(1.08);
+transform:scale(1.05);
 }
 
-.danger{background:rgba(255,80,120,0.25);}
-.good{background:rgba(120,255,200,0.18);}
+.danger{
+background:rgba(255,80,120,0.2);
+}
 
-/* 🔙 back */
-.back{
-background:rgba(255,255,255,0.12);
+.good{
+background:rgba(120,255,200,0.15);
+}
+
+.msg{
+margin-top:15px;
+opacity:0.7;
+font-size:13px;
 }
 
 /* ✨ анимации */
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-18px);}
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 @keyframes pop{
-0%{transform:scale(0.95);}
-50%{transform:scale(1.03);}
-100%{transform:scale(1);}
+from{transform:scale(0.9); opacity:0;}
+to{transform:scale(1); opacity:1;}
 }
 
-@keyframes textIn{
-from{opacity:0;transform:translateY(8px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes moveGlow{
-0%{transform:translateX(-20px);}
-100%{transform:translateX(20px);}
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
