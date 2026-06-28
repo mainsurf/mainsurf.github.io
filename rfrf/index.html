@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПОШЕЛ НАХУЙ ОТСЮДА — УХАДИИИИ</title>
 
+<style>
+:root{
+    --bg:#050505;
+    --text:#ffffff;
+    --grey:#9a9a9a;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background: radial-gradient(circle at 20% 20%, rgba(255,77,109,0.08), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,120,0.06), transparent 50%),
+                var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    overflow-x:hidden;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* noise */
+.noise{
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(#ffffff10 1px,transparent 1px);
+    background-size:3px 3px;
+    opacity:.05;
+    pointer-events:none;
+    z-index:1;
+}
+
+/* cursor glow */
+.cursor-glow{
+    position:fixed;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+    transform:translate(-50%, -50%);
+    background:radial-gradient(circle,
+        rgba(255, 0, 120, 0.35) 0%,
+        rgba(255, 0, 120, 0.12) 40%,
+        transparent 70%);
+    filter:blur(25px);
+}
+
+/* canvas particles */
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:0;
+}
+
+/* main content */
+.main-wrapper{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:40px;
+    padding:20px;
+}
+
+.brand{
+    font-weight:800;
+    letter-spacing:-1px;
+    font-size:clamp(3rem,10vw,7rem);
+}
+
+.brand em{
+    color:#ff4d6d;
+    font-style:normal;
+}
+
+/* КНОПКА ВОСПРОИЗВЕДЕНИЯ */
+.play-btn{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #ff4d6d, #ff0066);
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 60px rgba(255,77,109,0.3);
+    position:relative;
+}
+
+.play-btn:hover{
+    transform:scale(1.1);
+    box-shadow: 0 0 80px rgba(255,77,109,0.5);
+}
+
+.play-btn:active{
+    transform:scale(0.95);
+}
+
+.play-btn svg{
+    width:50px;
+    height:50px;
+    fill:#fff;
+    filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+
+.play-btn.playing svg{
+    animation:pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.1); }
+}
+
+/* status text */
+.status{
+    color:var(--grey);
+    font-size:1.1rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-weight:300;
+}
+
+.status.playing{
+    color:#ff4d6d;
+}
+
+/* вспомогательные стили */
+.hero-desc{
+    color:var(--grey);
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:.9rem;
+}
+
+/* адаптив для мобил */
+@media (max-width:600px){
+    .play-btn{
+        width:100px;
+        height:100px;
+    }
+    .play-btn svg{
+        width:40px;
+        height:40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<canvas id="particles"></canvas>
+
+<div class="main-wrapper">
+    <div class="brand">Кирилл <em>& Андрей</em></div>
+    <p class="hero-desc">нажми на кнопку</p>
+
+    <button class="play-btn" id="playBtn" aria-label="Play sound">
+        <svg viewBox="0 0 24 24">
+            <polygon points="5,3 19,12 5,21" />
+        </svg>
+    </button>
+
+    <div class="status" id="statusText">готов к воспроизведению</div>
+</div>
+
+<script>
+/* ===== CURSOR GLOW ===== */
+const glow = document.getElementById("cursorGlow");
+document.addEventListener("mousemove", (e) => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+});
+
+/* ===== PARTICLES ===== */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+const mouse = { x: null, y: null };
+
+window.addEventListener("mousemove", e => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
+
+class Particle {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.speedY = (Math.random() - 0.5) * 1;
+    }
+
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if(mouse.x && mouse.y){
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+
+            if(dist < 120){
+                this.x -= dx * 0.02;
+                this.y -= dy * 0.02;
+            }
+        }
+
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw(){
+        ctx.fillStyle = "rgba(255,77,109,0.6)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<80;i++){
+        particles.push(new Particle());
+    }
+}
+init();
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+/* ===== AUDIO PLAYER ===== */
+const playBtn = document.getElementById('playBtn');
+const statusText = document.getElementById('statusText');
+let audio = null;
+let isPlaying = false;
+
+// Путь к файлу: ваш репозиторий
+const audioUrl = 'https://mainsurf.github.io/rfrf/DIS.mp3';
+
+function initAudio() {
+    if (!audio) {
+        audio = new Audio(audioUrl);
+        audio.preload = 'auto';
+        
+        audio.addEventListener('canplay', () => {
+            statusText.textContent = 'готов к воспроизведению';
+            statusText.classList.remove('playing');
+        });
+
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            playBtn.classList.remove('playing');
+            statusText.textContent = 'воспроизведение завершено';
+            statusText.classList.remove('playing');
+            // меняем иконку на play
+            playBtn.innerHTML = `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>`;
+        });
+
+        audio.addEventListener('error', (e) => {
+            console.error('Ошибка загрузки аудио:', e);
+            statusText.textContent = 'ошибка загрузки звука';
+            statusText.classList.add('playing');
+        });
+    }
+}
+
+playBtn.addEventListener('click', () => {
+    initAudio();
+    
+    if (isPlaying) {
+        // Пауза
+        audio.pause();
+        isPlaying = false;
+        playBtn.classList.remove('playing');
+        statusText.textContent = 'воспроизведение приостановлено';
+        statusText.classList.remove('playing');
+        playBtn.innerHTML = `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>`;
+    } else {
+        // Воспроизведение
+        audio.play().then(() => {
+            isPlaying = true;
+            playBtn.classList.add('playing');
+            statusText.textContent = '🔊 играет...';
+            statusText.classList.add('playing');
+            playBtn.innerHTML = `
+                <svg viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                </svg>
+            `;
+        }).catch(err => {
+            console.error('Ошибка воспроизведения:', err);
+            statusText.textContent = 'ошибка: нажми ещё раз';
+            statusText.classList.add('playing');
+            // Если ошибка автовоспроизведения - просим кликнуть ещё раз
+            setTimeout(() => {
+                statusText.textContent = 'кликни снова для запуска';
+            }, 2000);
+        });
+    }
+});
+
+// Авто-инициализация при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+    // Предзагрузка аудио
+    const preloadAudio = new Audio();
+    preloadAudio.src = audioUrl;
+    preloadAudio.preload = 'metadata';
+});
+
+// Обработка ошибок сети
+window.addEventListener('online', () => {
+    if (audio && audio.error) {
+        statusText.textContent = 'сеть восстановлена, попробуй снова';
+        statusText.classList.add('playing');
+    }
+});
+</script>
+
+</body>
+</html>
